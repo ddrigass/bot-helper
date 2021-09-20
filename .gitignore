@@ -125,3 +125,4 @@ npm-debug.log
 /app/configs/config.ts
 /dist
 /build
+/lastOrder.png
