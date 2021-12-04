@@ -63,14 +63,24 @@ const writeOrder = async (json: OrderInterface): Promise<void> => {
 	json.id = Number.isInteger(order_id) ? ++order_id : 0;
 
 	databases.orders.get("orders").push(json).write();
-
-	// if (user_id) {
-	// 	databases.orders.get("orders").find({ id: user_id.id }).assign(json).write();
-	// } else {
-	// 	databases.orders.get("orders").push(json).write();
-	// }
-
 };
 
-export { databases, writeUser, writeOrder };
+/**
+ * writeUser()
+ * =====================
+ * Write user information from telegram context to user database
+ *
+ * @Context: ctx.update.message.from
+ *
+ * @interface [TelegramUserInterface](https://github.com/ptkdev-boilerplate/node-telegram-bot-boilerplate/blob/main/app/webcomponent/types/databases.type.ts)
+ *
+ * @param { TelegramUserInterface } json - telegram user object
+ *
+ */
+const getAllOrders = async (): Promise<Array<OrderInterface>> => {
+	const orders = databases.orders.get("orders").value();
+	return orders;
+};
+
+export { databases, writeUser, writeOrder, getAllOrders };
 export default databases;

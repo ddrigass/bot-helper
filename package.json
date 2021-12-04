@@ -1,25 +1,10 @@
 {
-	"name": "@ptkdev/node-telegram-bot-boilerplate",
-	"displayName": "Node Telegram BOT Boilerplate",
-	"description": "Create your telegram bot with this friendly boilerplate. Use this repository as template for your bot",
-	"version": "1.0.20210412",
+	"name": "bot-helper",
+	"displayName": "Bot helper",
+	"description": "Bot helper",
+	"version": "0.1.0",
 	"main": "dist/core/bot.js",
-	"publishConfig": {
-		"access": "public"
-	},
 	"author": "Patryk Rzucidło [@ptkdev] <support@ptkdev.io> (https://ptk.dev)",
-	"license": "MIT",
-	"license-docs": "CC BY 4.0",
-	"license-translations": "CC BY 4.0",
-	"license-images": "CC BY-NC 4.0",
-	"homepage": "https://github.com/ptkdev-boilerplate/node-telegram-bot-boilerplate",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ptkdev-boilerplate/node-telegram-bot-boilerplate.git"
-	},
-	"bugs": {
-		"url": "https://github.com/ptkdev-boilerplate/node-telegram-bot-boilerplate/issues"
-	},
 	"engines": {
 		"node": ">=14.0.0"
 	},
@@ -52,6 +37,7 @@
 		"pkg-upgrade": "npx npm-check-updates -u && npm install && husky install"
 	},
 	"dependencies": {
+		"dotenv": "^10.0.0",
 		"lowdb": "^1.0.0",
 		"pm2": "^4.5.6",
 		"puppeteer": "^10.2.0",

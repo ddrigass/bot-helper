@@ -1,5 +1,8 @@
 import * as command from "@app/functions/commands";
 import * as hears from "@app/functions/hears";
+import * as actions from "@app/functions/actions";
+import dotenv from "dotenv";
+import path from "path";
 
 /**
  * Start bot
@@ -11,10 +14,14 @@ import * as hears from "@app/functions/hears";
  *
  */
 (async () => {
+	dotenv.config({ path: path.join(__dirname, "../../.env") });
+
 	await command.quit();
 	await command.start();
 	await command.sendPhoto();
 	await command.callWaterClub();
+	await command.showAllOrders();
+	await actions.showOrder();
 	await hears.text();
 	await command.launch();
 })();

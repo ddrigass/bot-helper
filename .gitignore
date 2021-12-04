@@ -126,3 +126,5 @@ npm-debug.log
 /dist
 /build
 /lastOrder.png
+
+.env

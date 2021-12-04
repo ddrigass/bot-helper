@@ -1,7 +1,8 @@
 import puppeteer from "puppeteer";
+import { OrderInterface } from "@app/types/databases.type";
 
 /*
-Flow for get order
+Flow for make order
 1. Load page https://waterclub.od.ua/
 2. Click [data-productid="1942"] (button that open modal from some root)
 3. type to [name="txtname"] >> Пользователь
@@ -9,17 +10,19 @@ Flow for get order
 5. type to [name="message"] >> Адрес
 */
 
-const makeOrder = async () => {
+const makeOrder = async () : Promise<OrderInterface> => {
 	const browser = await puppeteer.launch();
 	const page = await browser.newPage();
-	await page.goto("https://waterclub.od.ua/");
+	await page.goto(process.env.WATERCLUB_URL);
 	await page.click('[data-productid="1942"]');
 	await page.waitForSelector("#formOrderOneClick");
-	await page.type(`#formOrderOneClick [name="txtname"]`, "Пользователь");
-	await page.type(`#formOrderOneClick [name="txtphone"]`, "0938888888");
-	await page.type(`#formOrderOneClick [name="message"]`, "Адрес");
+	await page.type(`#formOrderOneClick [name="txtname"]`, process.env.NAME);
+	await page.focus('#formOrderOneClick [name="txtphone');
+	await page.waitForTimeout(1000);
+	await page.keyboard.type(process.env.NUMBER);
+	await page.type(`#formOrderOneClick [name="message"]`, process.env.COMMENT);
 	// await page.click(`#formOrderOneClick [type="submit"]`);
-	const photo = await page.screenshot({ encoding: "base64" });
+	const photo = String(await page.screenshot({ encoding: "base64" }));
 	await browser.close();
 	return {
 		photo,

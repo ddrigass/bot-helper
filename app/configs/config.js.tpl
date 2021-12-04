@@ -9,7 +9,10 @@ module.exports = {
 		token: "BOT_TOKEN",
 	},
 
-	"databases": { users: "databases/users.json" },
+	"databases": {
+		users: "databases/users.json",
+		orders: "databases/orders.json"
+	},
 
 	// Debug
 	"debug": true,

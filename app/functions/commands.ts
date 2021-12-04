@@ -10,6 +10,7 @@
 import bot from "@app/functions/telegraf";
 import * as databases from "@app/functions/databases";
 import * as waterClub from "./controllers/waterClub";
+import { Markup } from "telegraf";
 
 /**
  * command: /quit
@@ -46,11 +47,29 @@ const callWaterClub = async (): Promise<void> => {
 	bot.command("callWaterClub", async (ctx) => {
 		ctx.telegram.sendMessage(ctx.message.chat.id, `I start to place an order`);
 		const order = await waterClub.makeOrder();
-		await ctx.replyWithPhoto({
+		const message = await ctx.replyWithPhoto({
 			source: Buffer.from(String(order.photo), "base64")
 		});
+		order.photo = message.photo[0].file_id;
 		await databases.writeOrder(order);
 		ctx.telegram.sendMessage(ctx.message.chat.id, `Order placed`);
+	});
+};
+
+/**
+ * command: /showAllOrders
+ * =====================
+ * Make a call to WaterClub to get water
+ *
+ */
+const showAllOrders = async (): Promise<void> => {
+	bot.command("showAllOrders", async (ctx) => {
+		const orders = await databases.getAllOrders();
+		const buttons = orders.map(order => Markup.button.callback(`Order №${order.id}`, `Order ${String(order.id)}`));
+		return ctx.reply(
+			"Orders",
+			Markup.inlineKeyboard(buttons)
+		);
 	});
 };
 
@@ -78,5 +97,5 @@ const launch = async (): Promise<void> => {
 	await bot.launch();
 };
 
-export { launch, quit, sendPhoto, start, callWaterClub };
+export { launch, quit, sendPhoto, start, callWaterClub, showAllOrders };
 export default launch;

@@ -86,5 +86,6 @@ export interface TelegramUserInterface {
  */
 export interface OrderInterface {
 	id?: number,
+	photo: string,
 	date: Date,
 }
