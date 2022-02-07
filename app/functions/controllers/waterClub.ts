@@ -21,7 +21,9 @@ const makeOrder = async () : Promise<OrderInterface> => {
 	await page.waitForTimeout(1000);
 	await page.keyboard.type(process.env.NUMBER);
 	await page.type(`#formOrderOneClick [name="message"]`, process.env.COMMENT);
-	// await page.click(`#formOrderOneClick [type="submit"]`);
+	if (!process.env.IS_TEST) {
+		await page.click(`#formOrderOneClick [type="submit"]`);
+	}
 	const photo = String(await page.screenshot({ encoding: "base64" }));
 	await browser.close();
 	return {
